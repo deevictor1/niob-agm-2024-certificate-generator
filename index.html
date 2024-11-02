@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download Your Certificate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        input[type="text"] {
+            font-size: 18px;
+            padding: 12px 20px;
+            width: 300px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            font-size: 18px;
+            padding: 12px 20px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        #downloadLink {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        #downloadLink:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="inputPage">
+        <h1>NIOB Ogun 2024 AGM Certificate Generator</h1>
+        <p style="color: blue">Note: Please input your name in the correct order. Inputs are case-sensitive</p>
+        <label for="name">Enter Your Name:</label>
+        <input type="text" id="name" placeholder="John Doe" />
+        <button onclick="validateAndGenerateCertificate()">Generate Certificate</button>
+        <div id="error" style="color: red; display: none; margin-top: 20px;">Name not found. Please check the spelling or contact support.</div>
+    </div>
+
+    <div class="container hidden" id="certificatePage">
+        <h2>View Your Certificate and Click The Download Button Below It</h2>
+        <canvas id="certificateCanvas" width="800" height="600"></canvas>
+        <a id="downloadLink" download="Certificate.pdf">Download Your Certificate</a>
+    </div>
+
+    <!-- Include jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        const attendees = ["Alice Johnson", "Bob Smith", "Charlie Brown", "David Williams", "VICTOR DADA"];
+
+        function showPage(pageId) {
+            document.getElementById('inputPage').classList.add('hidden');
+            document.getElementById('certificatePage').classList.add('hidden');
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        function validateAndGenerateCertificate() {
+            const name = document.getElementById('name').value.trim();
+
+            if (attendees.includes(name)) {
+                generateCertificate(name);
+                document.getElementById('error').style.display = 'none';
+                showPage('certificatePage');
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        function generateCertificate(name) {
+            const canvas = document.getElementById('certificateCanvas');
+            const context = canvas.getContext('2d');
+            const image = new Image();
+            image.crossOrigin = "anonymous";
+            image.src = 'https://i.imgur.com/mMuNfVO.png';
+
+            image.onload = function() {
+                context.drawImage(image, 0, 0, canvas.width, canvas.height);
+                context.font = 'bold 40px Montserrat';
+                context.fillStyle = '#000';
+                context.textAlign = 'center';
+                context.fillText(name, canvas.width / 2, (canvas.height / 2) - 15);
+                preparePdf(canvas, name);
+            };
+
+            image.onerror = function() {
+                console.error("Failed to load the image. Please check the URL or CORS settings.");
+                alert("Failed to load the certificate background image. Please contact support.");
+            };
+        }
+
+        function preparePdf(canvas, name) {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'px',
+                format: [canvas.width, canvas.height]
+            });
+
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, canvas.width, canvas.height);
+            const pdfBlob = pdf.output('blob');
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+            const downloadLink = document.getElementById('downloadLink');
+            
+            // Set the download filename dynamically with the attendee's name
+            downloadLink.download = `NIOB AGM 2024 Certificate - ${name}.pdf`;
+            downloadLink.href = pdfUrl;
+
+            downloadLink.onclick = function() {
+                setTimeout(() => URL.revokeObjectURL(pdfUrl), 100);
+
+                 // Disable the download button and change text after download
+                downloadLink.textContent = "Certificate Downloaded";
+                downloadLink.style.pointerEvents = "none"; // Make unclickable
+                downloadLink.style.opacity = "0.6"; // Optional styling to indicate disabled state
+            };
+        }
+
+    </script>
+</body>
+</html>
