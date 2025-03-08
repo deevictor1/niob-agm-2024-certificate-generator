@@ -101,7 +101,84 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
-        const attendees = ["Alice Johnson", "Bob Smith", "Charlie Brown", "David Williams", "VICTOR DADA"];
+        // const attendees = ["Alice Johnson", "Bob Smith", "Charlie Brown", "David Williams", "VICTOR DADA"];
+
+        const attendees = [
+            "ISAH BABATUNDE GABRIEL",
+            "TAJUDEEN IBRAHIM LEKAN",
+            "OREKOYA MORUF OLALEKAN",
+            "OLAOLUWA ADEBOWALE AYODELE",
+            "SAKA QUADRI OPEYEMI",
+            "ADESHINA AZEEM ADEBOLA",
+            "OLAYINKA ABIMBOLA OLATUNJI",
+            "ODUNBAKU BABATUNDE ISOLA",
+            "AKINOLA OLUWATOSIN JACOB",
+            "SULE KAYODE DAMILOLA",
+            "OLUMEFUN OLUREMI ABIODUN",
+            "KEYE MUFUTAU ADEDEJI",
+            "AJAYI SUNDAY SAMSON",
+            "SHITTU OLUGBENGA OLUFEMI",
+            "ADEFALU SODIQ ADEYEMI",
+            "ABODUNRIN OLADIMEJI OLUWATOYIN",
+            "ODUNOWO BABATUNDE OLATOKUNBOH",
+            "OLUWAFEMI PHILIP BANKOLE",
+            "LAWAL IDRIS ADEDEJI",
+            "TITILAYO F. OLADOGBON",
+            "SOLAJA ADENIYI ADEKUNLE",
+            "MABOGAJE OLATUNJI MICHEAL",
+            "OJUGBELE WASIU",
+            "IBIRONKE OLASOJI",
+            "BAKARE SAHEED OLALEKAN",
+            "GAFAR ADEBODUN KABIR",
+            "AJAYI OLUFISAYO OPEYEMI",
+            "DELE ABDULLAHI OLUWAMODUPE",
+            "ADETUNJI ADENIYI ADEOSO",
+            "ALONGE OLAYIWOLA RICHARD",
+            "SAMUEL MERCY ADEKEMI",
+            "DARAMOLA OLUSOLA ISRAEL",
+            "OLAMILEKAN RAFIU OYEKAN",
+            "ADEDAYO ABIMBOLA OGUNSOLA",
+            "IBUKUNOLUWA BABATUNDE OYESOLA",
+            "ABDULLAH ABIDEEN ADEYEMI",
+            "SHOLEYE WILLIAM OLADIPO",
+            "SONAIKE AKIBU BABATUNDE",
+            "FAGBOYEGUN FOLAYAN OLUWAFEMI",
+            "ALADESIDA OLAYIDE ADENIKE",
+            "SALAU FATAI ADELABI",
+            "ADEYINKA CHRISTIANA OLAMIDE",
+            "ADEDOKUN ADETUNJI SAMSON",
+            "OGUNLEYE JOHNSON OLASOJI",
+            "ADELEKE ADEMOLA OLUFEMI",
+            "OSHO FATIMOH ABOLORE",
+            "ADESINA SUNDAY ISAIAH",
+            "LAWAL SAHEED ADEYEMO",
+            "KUTI TOLUWALOPE MAYOWA",
+            "DANIEL O. OLAJIDE",
+            "ADEBAYO DAUDA ADESHINA",
+            "FAKEYE AYODIMEJI OLAKUNLE",
+            "ODEMUYIWA GBENGA ALANI",
+            "ADESOPE NURAIN OLOLADE",
+            "BABATUNDE OLUWASOLA DAMOLA",
+            "OLUFOWORA OLAKUNLE A.",
+            "SOGUNRO OLANREWAJU AYODELE",
+            "OLUFEMI OLANIYI OYENIYI",
+            "OLOSHO OLUWASEGUN JOHN",
+            "OLAOLUWA MICHAEL BADIRU",
+            "ABDULSALAM QUADRI AKOREDE",
+            "AREWA OLUFEMI DAVID",
+            "FAGADE ADETUTU OLAWALE",
+            "KALEJAIYE AYOMIDE ADEOLA",
+            "OLALEKAN OLUSEGUN OGUNSOLA",
+            "LAWAL SAHEED ADEYEMO",
+            "OLATUNJI OLUGBENGA MICHAEL",
+            "SANNI MUHIDEEN OLALEKAN",
+            "ADEBOYE IFEOLUWA VAL",
+            "JUBRIL AKEEM BABATUNDE",
+            "ADEWALE ADEGORITE",
+            "OLAWALE OLUWATOBI TEMITOPE",
+            "AGBOOLA LUKMAN OLAWALE"
+            ];
+
 
         function showPage(pageId) {
             document.getElementById('inputPage').classList.add('hidden');
@@ -126,11 +203,12 @@
             const context = canvas.getContext('2d');
             const image = new Image();
             image.crossOrigin = "anonymous";
-            image.src = 'https://i.imgur.com/mMuNfVO.png';
+            // image.src = 'https://i.imgur.com/mMuNfVO.png';
+            image.src = 'https://i.imgur.com/qJixB8I.png';  
 
             image.onload = function() {
                 context.drawImage(image, 0, 0, canvas.width, canvas.height);
-                context.font = 'bold 40px Montserrat';
+                context.font = 'bold 30px Montserrat';
                 context.fillStyle = '#000';
                 context.textAlign = 'center';
                 context.fillText(name, canvas.width / 2, (canvas.height / 2) - 15);
